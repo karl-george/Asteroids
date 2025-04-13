@@ -18,6 +18,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0  # delta time
+
+    # Updatable Group
+    updatable = pygame.sprite.Group()
+    # Drawable group
+    drawable = pygame.sprite.Group()
+    # Set both groups as containers for the Player
+    Player.containers = (updatable, drawable)
     # Create a player and spawn him in centre of screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
@@ -29,10 +36,14 @@ def main():
 
         # Color screen rect
         screen.fill("black")
-        # Update the player
-        player.update(dt)
-        # Render the player every frame/tick
-        player.draw(screen)
+
+        # Call update on all updatables in the group
+        updatable.update(dt)
+
+        # Call draw on all drawables in the group
+        for item in drawable:
+            item.draw(screen)
+
         # Update the screen
         pygame.display.flip()
 
