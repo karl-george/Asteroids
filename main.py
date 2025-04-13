@@ -29,6 +29,8 @@ def main():
 
         # Color screen rect
         screen.fill("black")
+        # Update the player
+        player.update(dt)
         # Render the player every frame/tick
         player.draw(screen)
         # Update the screen
