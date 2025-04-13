@@ -15,6 +15,8 @@ from constants import (
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+    dt = 0  # delta time
 
     while True:
         # Check to see if user closed the game window with the X. If so end while loop
@@ -27,6 +29,10 @@ def main():
 
         # Update the screen
         pygame.display.flip()
+
+        dt = clock.tick(60) / 1000
+
+    # End of while loop
 
 
 # This if statement ensures the main() function is only called when this file is run directly;
