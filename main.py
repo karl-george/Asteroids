@@ -10,6 +10,7 @@ from constants import (
     ASTEROID_SPAWN_RATE,
     ASTEROID_MAX_RADIUS,
 )
+from player import Player
 
 
 def main():
@@ -17,6 +18,8 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0  # delta time
+    # Create a player and spawn him in centre of screen
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
         # Check to see if user closed the game window with the X. If so end while loop
@@ -26,10 +29,12 @@ def main():
 
         # Color screen rect
         screen.fill("black")
-
+        # Render the player every frame/tick
+        player.draw(screen)
         # Update the screen
         pygame.display.flip()
 
+        # Limit frame rate to 60 fps
         dt = clock.tick(60) / 1000
 
     # End of while loop
