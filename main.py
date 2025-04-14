@@ -11,6 +11,8 @@ from constants import (
     ASTEROID_MAX_RADIUS,
 )
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 
 def main():
@@ -23,10 +25,23 @@ def main():
     updatable = pygame.sprite.Group()
     # Drawable group
     drawable = pygame.sprite.Group()
-    # Set both groups as containers for the Player
+    # Asteroids group
+    asteroids = pygame.sprite.Group()
+
+    # Set updatable and drawable groups as containers for the Player
     Player.containers = (updatable, drawable)
+
+    # Set updatable, drawable and asteroids groups as container for asteroids
+    Asteroid.containers = (asteroids, updatable, drawable)
+
+    # Set asteroid field to updatable
+    AsteroidField.containers = updatable
+
     # Create a player and spawn him in centre of screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    # Create an asteroid field
+    asteroid_field = AsteroidField()
 
     while True:
         # Check to see if user closed the game window with the X. If so end while loop
