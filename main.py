@@ -1,5 +1,6 @@
 # This allows us to use code from the pygame library
 import pygame
+import sys
 
 # from [filename] import [functions, variables] etc
 from constants import (
@@ -54,6 +55,11 @@ def main():
 
         # Call update on all updatables in the group
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.check_collision(player):
+                print("Game Over!")
+                sys.exit()
 
         # Call draw on all drawables in the group
         for item in drawable:
