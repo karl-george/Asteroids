@@ -60,10 +60,18 @@ def main():
         # Call update on all updatables in the group
         updatable.update(dt)
 
+        # Check if asteroid collides with the player and end game
         for asteroid in asteroids:
             if asteroid.check_collision(player):
                 print("Game Over!")
                 sys.exit()
+
+        # Check if bullet collides with asteroid
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.check_collision(asteroid):
+                    shot.kill()
+                    asteroid.kill()
 
         # Call draw on all drawables in the group
         for item in drawable:
