@@ -2,6 +2,8 @@
 import pygame
 import sys
 
+import pygame.freetype
+
 # from [filename] import [functions, variables] etc
 from constants import (
     SCREEN_WIDTH,
@@ -22,6 +24,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0  # delta time
+    font = pygame.freetype.SysFont(pygame.font.get_default_font(), 36)
 
     # Updatable Group
     updatable = pygame.sprite.Group()
@@ -64,6 +67,7 @@ def main():
         for asteroid in asteroids:
             if asteroid.check_collision(player):
                 print("Game Over!")
+                print("Your score was:", player.score)
                 sys.exit()
 
         # Check if bullet collides with asteroid
@@ -72,10 +76,13 @@ def main():
                 if shot.check_collision(asteroid):
                     shot.kill()
                     asteroid.split()
+                    player.increase_score()
 
         # Call draw on all drawables in the group
         for item in drawable:
             item.draw(screen)
+        # Draw score
+        font.render_to(screen, (10, 10), f"Score: {player.score}", (255, 255, 255))
 
         # Update the screen
         pygame.display.flip()

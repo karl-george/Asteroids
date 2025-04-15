@@ -6,6 +6,7 @@ from constants import (
     SHOT_RADIUS,
     PLAYER_SHOT_SPEED,
     PLAYER_SHOT_COOLDOWN,
+    INCREASE_SCORE,
 )
 from circleshape import CircleShape
 from shot import Shot
@@ -16,6 +17,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shot_timer = 0
+        self.score = 0
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
@@ -33,6 +35,9 @@ class Player(CircleShape):
             )
         else:
             return
+
+    def increase_score(self):
+        self.score += INCREASE_SCORE
 
     def update(self, dt):
         self.shot_timer -= dt
