@@ -65,10 +65,13 @@ def main():
 
         # Check if asteroid collides with the player and end game
         for asteroid in asteroids:
-            if asteroid.check_collision(player):
-                print("Game Over!")
-                print("Your score was:", player.score)
-                sys.exit()
+            if player.grace_period <= 0:
+                if asteroid.check_collision(player):
+                    if player.lives == 1:
+                        print("Game Over!")
+                        print("Your score was:", player.score)
+                        sys.exit()
+                    player.take_damage()
 
         # Check if bullet collides with asteroid
         for asteroid in asteroids:
@@ -83,6 +86,8 @@ def main():
             item.draw(screen)
         # Draw score
         font.render_to(screen, (10, 10), f"Score: {player.score}", (255, 255, 255))
+        # Draw lives
+        font.render_to(screen, (200, 10), f"Lives: {player.lives}", (255, 255, 255))
 
         # Update the screen
         pygame.display.flip()
